@@ -1,6 +1,10 @@
 import { Request, Response } from "express";
+import client from "../database.js";
 
-export async function usersController(req: Request, res: Response) {
-  res.status(201).send("Você está na rota getUsersController")
-  
+import * as userService from "../services/userService.js";
+
+export async function createUser(req: Request, res: Response) {
+  const { email, password } = req.body;
+  await userService.createUser(email, password);
+  res.sendStatus(201);
 }
