@@ -13,3 +13,12 @@ export async function createUser(email: string, encryptedPassword: string) {
     },
   });
 }
+
+export async function getPasswordByEmail(email: string) {
+  const user = await client.user.findUnique({
+    where: {
+      email,
+    },
+  });
+  return user.password;
+}

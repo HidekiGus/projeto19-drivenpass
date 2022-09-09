@@ -9,3 +9,14 @@ export async function createUser(email: string, password: string) {
   const encryptedPassword = bcrypt.hashSync(password, 10);
   await userRepository.createUser(email, encryptedPassword);
 }
+
+export async function logIn(email: string, password: string) {
+  const encryptedPassword = await userRepository.getPasswordByEmail(email);
+  const doPasswordsCheck = bcrypt.compareSync(password, encryptedPassword);
+  if (!doPasswordsCheck) {
+    throw {
+      type: 'unauthorized',
+      message: 'Check your email and password and try again!',
+    };
+  }
+}
