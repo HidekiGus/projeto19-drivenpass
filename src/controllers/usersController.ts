@@ -1,7 +1,7 @@
-import { Request, Response } from "express";
-import client from "../database.js";
+import { Request, Response } from 'express';
+import client from '../database.js';
 
-import * as userService from "../services/userService.js";
+import * as userService from '../services/userService.js';
 
 export async function createUser(req: Request, res: Response) {
   const { email, password } = req.body;
