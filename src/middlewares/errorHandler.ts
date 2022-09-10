@@ -12,5 +12,6 @@ export default function errorHandler(
   if (error.type === 'unauthorized') {
     return res.status(401).send(error.message);
   }
+  console.log(error);
   res.sendStatus(500);
 }

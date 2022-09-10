@@ -1,5 +1,4 @@
 import * as credentialRepository from '../repositories/credentialRepository.js';
-import * as userRepository from '../repositories/userRepository.js';
 import { resolveJWT } from '../middlewares/jwtResolver.js';
 import { getAuthorization } from '../middlewares/getAuthorization.js';
 import { encryptWithCryptr } from '../middlewares/cryptrManager.js';
