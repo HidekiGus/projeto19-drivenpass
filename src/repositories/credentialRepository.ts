@@ -17,3 +17,12 @@ export async function createCredential(
     },
   });
 }
+
+export async function findCredentialByTitle(title: string, userId: number) {
+  return await client.credential.findMany({
+    where: {
+      title,
+      userId,
+    },
+  });
+}

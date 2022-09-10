@@ -1,25 +1,31 @@
 import * as credentialRepository from '../repositories/credentialRepository.js';
-import jwt, { JwtPayload } from 'jsonwebtoken';
-import jwtDecode from 'jwt-decode';
-
-interface Token {
-  userId: number;
-  iat: number;
-}
+import * as userRepository from '../repositories/userRepository.js';
+import { resolveJWT } from '../middlewares/jwtResolver.js';
+import { getAuthorization } from '../middlewares/getAuthorization.js';
+import { encryptWithCryptr } from '../middlewares/cryptrManager.js';
 
 export async function createCredential(
   url: string,
   username: string,
   password: string,
   title: string,
-  jwtKey: string
+  authorization: string
 ) {
-  const data = await resolveJWT(jwtKey);
-  console.log(data);
-}
-
-export async function resolveJWT(jwtKey: string) {
-  const data = jwtDecode<Token>(jwtKey);
-
-  return data.userId;
+  const jwtToken = await getAuthorization(authorization);
+  const userId = await resolveJWT(jwtToken);
+  const searchForTitle = await credentialRepository.findCredentialByTitle(
+    title,
+    userId
+  );
+  if (searchForTitle.length !== 0) {
+    throw { type: 'alreadyUsed', message: 'This title is already in use!' };
+  }
+  const encryptedPassword = await encryptWithCryptr(password);
+  await credentialRepository.createCredential(
+    url,
+    username,
+    encryptedPassword,
+    title,
+    userId
+  );
 }

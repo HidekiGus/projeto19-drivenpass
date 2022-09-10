@@ -10,6 +10,6 @@ export async function createUser(req: Request, res: Response) {
 
 export async function logIn(req: Request, res: Response) {
   const { email, password } = req.body;
-  const token = await userService.logIn(email, password);
+  const token: string = await userService.logIn(email, password);
   res.status(200).send({ token });
 }
