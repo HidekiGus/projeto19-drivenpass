@@ -9,7 +9,7 @@ export async function createSafeNote(
 ) {
   const jwtToken = await getAuthorization(authorization);
   const userId = await resolveJWT(jwtToken);
-  const searchForTitle = await safeNoteRepository.findCredentialByTitle(
+  const searchForTitle = await safeNoteRepository.findSafeNoteByTitle(
     title,
     userId
   );

@@ -14,7 +14,7 @@ export async function createSafeNote(
   });
 }
 
-export async function findCredentialByTitle(title: string, userId: number) {
+export async function findSafeNoteByTitle(title: string, userId: number) {
   return await client.safeNote.findMany({
     where: {
       title,

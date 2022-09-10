@@ -7,5 +7,4 @@ export const cardSchema = Joi.object({
   password: Joi.string().required(),
   isVirtual: Joi.boolean().required(),
   type: Joi.string().valid('Credit', 'Debit', 'Both').required(),
-  userId: Joi.number().integer().required(),
 });
