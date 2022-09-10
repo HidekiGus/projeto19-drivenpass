@@ -1,5 +1,7 @@
 import * as userRepository from '../repositories/userRepository.js';
 import bcrypt from 'bcrypt';
+import client from '../database.js';
+import jwt from 'jsonwebtoken';
 
 export async function createUser(email: string, password: string) {
   const isUsed = await userRepository.checkIfEmailIsUsed(email);
@@ -19,4 +21,13 @@ export async function logIn(email: string, password: string) {
       message: 'Check your email and password and try again!',
     };
   }
+  return await generateJWT(email);
+}
+
+export async function generateJWT(email: string) {
+  const userId = await userRepository.getUserByEmail(email);
+  const data = { userId };
+  const secretKey = process.env.JWT_SECRET;
+  const token = jwt.sign(data, secretKey);
+  return token;
 }

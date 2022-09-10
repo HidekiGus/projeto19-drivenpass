@@ -22,3 +22,10 @@ export async function getPasswordByEmail(email: string) {
   });
   return user.password;
 }
+
+export async function getUserByEmail(email: string) {
+  const userData = await client.user.findUnique({
+    where: { email },
+  });
+  return userData.id;
+}

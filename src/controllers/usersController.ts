@@ -10,7 +10,6 @@ export async function createUser(req: Request, res: Response) {
 
 export async function logIn(req: Request, res: Response) {
   const { email, password } = req.body;
-  await userService.logIn(email, password);
-  // JWT
-  res.sendStatus(200);
+  const token = await userService.logIn(email, password);
+  res.status(200).send({ token });
 }
