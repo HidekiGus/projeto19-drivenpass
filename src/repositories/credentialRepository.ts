@@ -26,3 +26,19 @@ export async function findCredentialByTitle(title: string, userId: number) {
     },
   });
 }
+
+export async function getAllCredentials(userId: number) {
+  return await client.credential.findMany({
+    where: {
+      userId,
+    },
+  });
+}
+
+export async function getCredentialById(id: number) {
+  return await client.credential.findMany({
+    where: {
+      id,
+    },
+  });
+}

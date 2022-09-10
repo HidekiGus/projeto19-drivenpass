@@ -30,3 +30,19 @@ export async function createCard(
     },
   });
 }
+
+export async function getAllCards(userId: number) {
+  return await client.card.findMany({
+    where: {
+      userId,
+    },
+  });
+}
+
+export async function getCardById(id: number) {
+  return await client.card.findMany({
+    where: {
+      id,
+    },
+  });
+}

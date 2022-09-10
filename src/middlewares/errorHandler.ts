@@ -12,6 +12,9 @@ export default function errorHandler(
   if (error.type === 'unauthorized') {
     return res.status(401).send(error.message);
   }
+  if (error.type === 'notFound') {
+    return res.status(404).send(error.message);
+  }
   console.log(error);
   res.sendStatus(500);
 }

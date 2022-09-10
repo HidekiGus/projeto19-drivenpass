@@ -19,3 +19,11 @@ export async function createWifi(
     userId
   );
 }
+
+export async function getWifis(authorization: string, id: string | undefined) {
+  const jwtToken = await getAuthorization(authorization);
+  const userId = await resolveJWT(jwtToken);
+  if (id === undefined) {
+    // If id was not sent
+  }
+}

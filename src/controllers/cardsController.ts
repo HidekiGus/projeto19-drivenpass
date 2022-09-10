@@ -16,3 +16,10 @@ export async function createCard(req: Request, res: Response) {
   );
   res.sendStatus(201);
 }
+
+export async function getCards(req: Request, res: Response) {
+  const { authorization } = req.headers;
+  const { id } = req.params;
+  const data = await cardService.getCards(authorization, id);
+  res.status(200).send(data);
+}

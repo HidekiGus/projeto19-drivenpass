@@ -13,3 +13,10 @@ export async function createCredential(req: Request, res: Response) {
   );
   res.sendStatus(201);
 }
+
+export async function getCredentials(req: Request, res: Response) {
+  const { authorization } = req.headers;
+  const { id } = req.params;
+  const data = await credentialService.getCredentials(authorization, id);
+  res.status(200).send(data);
+}
