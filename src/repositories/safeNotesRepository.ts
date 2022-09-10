@@ -22,3 +22,19 @@ export async function findSafeNoteByTitle(title: string, userId: number) {
     },
   });
 }
+
+export async function getAllSafeNotes(userId: number) {
+  return await client.safeNote.findMany({
+    where: {
+      userId,
+    },
+  });
+}
+
+export async function getSafeNoteById(id: number) {
+  return await client.safeNote.findMany({
+    where: {
+      id,
+    },
+  });
+}
