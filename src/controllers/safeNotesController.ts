@@ -7,3 +7,10 @@ export async function createSafeNote(req: Request, res: Response) {
   await safeNotesService.createSafeNote(title, content, authorization);
   res.sendStatus(201);
 }
+
+export async function getSafeNotes(req: Request, res: Response) {
+  const { authorization } = req.headers;
+  const { id } = req.params;
+  const data = await safeNotesService.getSafeNotes(authorization, id);
+  res.status(200).send(data);
+}

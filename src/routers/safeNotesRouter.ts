@@ -1,7 +1,10 @@
 import { Router } from 'express';
 import { validateSchema } from '../middlewares/validateSchema.js';
 import { safeNotesSchema } from '../schemas/safeNoteSchema.js';
-import { createSafeNote } from '../controllers/safeNotesController.js';
+import {
+  createSafeNote,
+  getSafeNotes,
+} from '../controllers/safeNotesController.js';
 
 const safeNotesRouter = Router();
 
@@ -10,5 +13,7 @@ safeNotesRouter.post(
   validateSchema(safeNotesSchema),
   createSafeNote
 );
+safeNotesRouter.get('/safenote', getSafeNotes);
+safeNotesRouter.get('/safenote/:id', getSafeNotes);
 
 export default safeNotesRouter;
