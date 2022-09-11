@@ -14,3 +14,10 @@ export async function getSafeNotes(req: Request, res: Response) {
   const data = await safeNotesService.getSafeNotes(authorization, id);
   res.status(200).send(data);
 }
+
+export async function deleteSafeNote(req: Request, res: Response) {
+  const { authorization } = req.headers;
+  const { id } = req.params;
+  await safeNotesService.deleteSafeNote(authorization, id);
+  res.sendStatus(200);
+}

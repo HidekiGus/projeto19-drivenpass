@@ -3,6 +3,7 @@ import { validateSchema } from '../middlewares/validateSchema.js';
 import { safeNotesSchema } from '../schemas/safeNoteSchema.js';
 import {
   createSafeNote,
+  deleteSafeNote,
   getSafeNotes,
 } from '../controllers/safeNotesController.js';
 
@@ -15,5 +16,6 @@ safeNotesRouter.post(
 );
 safeNotesRouter.get('/safenote', getSafeNotes);
 safeNotesRouter.get('/safenote/:id', getSafeNotes);
+safeNotesRouter.delete('/safenote/:id', deleteSafeNote);
 
 export default safeNotesRouter;

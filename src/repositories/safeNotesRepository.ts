@@ -38,3 +38,11 @@ export async function getSafeNoteById(id: number) {
     },
   });
 }
+
+export async function deleteSafeNoteById(id: number) {
+  await client.safeNote.delete({
+    where: {
+      id,
+    },
+  });
+}
