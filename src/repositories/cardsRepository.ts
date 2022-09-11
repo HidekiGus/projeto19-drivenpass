@@ -46,3 +46,11 @@ export async function getCardById(id: number) {
     },
   });
 }
+
+export async function deleteCardById(id: number) {
+  await client.card.delete({
+    where: {
+      id,
+    },
+  });
+}

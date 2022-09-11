@@ -23,3 +23,10 @@ export async function getCards(req: Request, res: Response) {
   const data = await cardService.getCards(authorization, id);
   res.status(200).send(data);
 }
+
+export async function deleteCard(req: Request, res: Response) {
+  const { authorization } = req.headers;
+  const { id } = req.params;
+  await cardService.deleteCard(authorization, id);
+  res.sendStatus(200);
+}

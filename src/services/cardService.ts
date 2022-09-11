@@ -76,3 +76,24 @@ export async function getCards(authorization: string, id: string | undefined) {
     }
   }
 }
+
+export async function deleteCard(authorization: string, id: string) {
+  const jwtToken = await getAuthorization(authorization);
+  const userId = await resolveJWT(jwtToken);
+  const data = await cardRepository.getCardById(Number(id));
+  if (data.length === 0) {
+    throw {
+      type: 'notFound',
+      message: 'There is not a Card with this id!',
+    };
+  } else if (data[0].userId === userId) {
+    // If user is trying to delete his own card
+    return await cardRepository.deleteCardById(Number(id));
+  } else {
+    // If user is trying to delete someone else's card
+    throw {
+      type: 'unauthorized',
+      message: 'This Card does not belong to you!',
+    };
+  }
+}
