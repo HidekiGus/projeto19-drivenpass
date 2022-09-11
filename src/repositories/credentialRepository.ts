@@ -42,3 +42,11 @@ export async function getCredentialById(id: number) {
     },
   });
 }
+
+export async function deleteCredentialById(id: number) {
+  await client.credential.delete({
+    where: {
+      id,
+    },
+  });
+}

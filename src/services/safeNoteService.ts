@@ -19,7 +19,10 @@ export async function createSafeNote(
   await safeNoteRepository.createSafeNote(title, content, userId);
 }
 
-export async function getSafeNotes(authorization, id: string | undefined) {
+export async function getSafeNotes(
+  authorization: string,
+  id: string | undefined
+) {
   const jwtToken = await getAuthorization(authorization);
   const userId = await resolveJWT(jwtToken);
   if (id === undefined) {

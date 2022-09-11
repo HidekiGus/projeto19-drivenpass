@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import {
   createCredential,
+  deleteCredential,
   getCredentials,
 } from '../controllers/credentialsController.js';
 import { validateSchema } from '../middlewares/validateSchema.js';
@@ -15,5 +16,6 @@ credentialRouter.post(
 );
 credentialRouter.get('/credential', getCredentials);
 credentialRouter.get('/credential/:id', getCredentials);
+credentialRouter.delete('/credential/:id', deleteCredential);
 
 export default credentialRouter;

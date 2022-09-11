@@ -68,3 +68,24 @@ export async function getCredentials(
     }
   }
 }
+
+export async function deleteCredential(authorization: string, id: string) {
+  const jwtToken = await getAuthorization(authorization);
+  const userId = await resolveJWT(jwtToken);
+  const data = await credentialRepository.getCredentialById(Number(id));
+  if (data.length === 0) {
+    throw {
+      type: 'notFound',
+      message: 'There is not a Credential with this id!',
+    };
+  } else if (data[0].userId === userId) {
+    // If user is trying to delete his own credential
+    return await credentialRepository.deleteCredentialById(Number(id));
+  } else {
+    // If user is trying to delete someone else's credential
+    throw {
+      type: 'unauthorized',
+      message: 'This credential does not belong to you!',
+    };
+  }
+}
