@@ -31,3 +31,11 @@ export async function getWifiById(id: number) {
     },
   });
 }
+
+export async function deleteWifiById(id: number) {
+  await client.wifi.delete({
+    where: {
+      id,
+    },
+  });
+}

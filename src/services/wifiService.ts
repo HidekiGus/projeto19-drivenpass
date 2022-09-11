@@ -54,3 +54,24 @@ export async function getWifis(authorization: string, id: string | undefined) {
     }
   }
 }
+
+export async function deleteWifi(authorization: string, id: string) {
+  const jwtToken = await getAuthorization(authorization);
+  const userId = await resolveJWT(jwtToken);
+  const data = await wifiRepository.getWifiById(Number(id));
+  if (data.length === 0) {
+    throw {
+      type: 'notFound',
+      message: 'There is not a wi-fi with this id!',
+    };
+  } else if (data[0].userId === userId) {
+    // If user is trying to delete his own wi-fi
+    return await wifiRepository.deleteWifiById(Number(id));
+  } else {
+    // If user is trying to delete someone else's wi-fi
+    throw {
+      type: 'unauthorized',
+      message: 'This wi-fi does not belong to you!',
+    };
+  }
+}

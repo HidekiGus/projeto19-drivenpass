@@ -14,3 +14,10 @@ export async function getWifis(req: Request, res: Response) {
   const data = await wifiService.getWifis(authorization, id);
   res.status(200).send(data);
 }
+
+export async function deleteWifi(req: Request, res: Response) {
+  const { authorization } = req.headers;
+  const { id } = req.params;
+  await wifiService.deleteWifi(authorization, id);
+  res.sendStatus(200);
+}
