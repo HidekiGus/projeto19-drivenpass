@@ -13,15 +13,25 @@ export async function createUser(email: string, password: string) {
 }
 
 export async function logIn(email: string, password: string) {
-  const encryptedPassword = await userRepository.getPasswordByEmail(email);
-  const doPasswordsCheck = bcrypt.compareSync(password, encryptedPassword);
-  if (!doPasswordsCheck) {
+  const userExists = await userRepository.checkUserByEmail(email);
+  if (userExists === null) {
+    // If user with this email does not exist
     throw {
-      type: 'unauthorized',
-      message: 'Check your email and password and try again!',
+      type: 'notFound',
+      message: 'Check email and password and try again!',
     };
+  } else {
+    // If user with this email was found
+    const encryptedPassword = await userRepository.getPasswordByEmail(email);
+    const doPasswordsCheck = bcrypt.compareSync(password, encryptedPassword);
+    if (!doPasswordsCheck) {
+      throw {
+        type: 'unauthorized',
+        message: 'Check your email and password and try again!',
+      };
+    }
+    return await generateJWT(email);
   }
-  return await generateJWT(email);
 }
 
 export async function generateJWT(email: string) {

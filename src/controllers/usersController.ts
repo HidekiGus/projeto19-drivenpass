@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { checkUserByEmail } from '../repositories/userRepository.js';
 
 import * as userService from '../services/userService.js';
 

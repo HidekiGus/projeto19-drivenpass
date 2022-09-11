@@ -29,3 +29,12 @@ export async function getUserByEmail(email: string) {
   });
   return userData.id;
 }
+
+export async function checkUserByEmail(email: string) {
+  const user = await client.user.findUnique({
+    where: {
+      email,
+    },
+  });
+  return user;
+}
